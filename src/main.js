@@ -17,8 +17,6 @@ render(document.querySelector(`.trip-main__trip-controls`), getFilters(), `befor
 render(document.querySelector(`.trip-events > h2`), getSort());
 render(document.querySelector(`.trip-events .trip-events__trip-sort`), getContent());
 
-new Array(3).fill().forEach(() => {
-  render(document.querySelector(`.trip-days`), getCart(), `afterbegin`);
-});
+new Array(3).fill().forEach(() => render(document.querySelector(`.trip-days`), getCart(), `afterbegin`));
 render(document.querySelector(`.trip-days`), getCartEdit(), `afterbegin`);
 render(document.querySelector(`.trip-events`), getStats());
