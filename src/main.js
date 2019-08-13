@@ -1,10 +1,10 @@
 import {getRoute} from './components/route';
 import {getMenu} from './components/menu';
 import {getFilters} from './components/filters';
-import {getSort} from './components/sort';
+import {getSort} from './components/sorting';
 import {getContent} from './components/content';
-import {getCart} from './components/cart';
-import {getCartEdit} from './components/cart-edit';
+import {getCard} from './components/card';
+import {getCardEdit} from './components/card-edit';
 import {getStats} from './components/stats';
 
 const render = (container, component, place = `afterend`) => {
@@ -17,6 +17,6 @@ render(document.querySelector(`.trip-main__trip-controls`), getFilters(), `befor
 render(document.querySelector(`.trip-events > h2`), getSort());
 render(document.querySelector(`.trip-events .trip-events__trip-sort`), getContent());
 
-new Array(3).fill().forEach(() => render(document.querySelector(`.trip-days`), getCart(), `afterbegin`));
-render(document.querySelector(`.trip-days`), getCartEdit(), `afterbegin`);
+new Array(3).fill().forEach(() => render(document.querySelector(`.trip-days`), getCard(), `afterbegin`));
+render(document.querySelector(`.trip-days`), getCardEdit(), `afterbegin`);
 render(document.querySelector(`.trip-events`), getStats());
