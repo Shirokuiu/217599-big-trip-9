@@ -49,10 +49,11 @@ const getTotalCities = (cards = cardsData) => {
 const cardsData = makeData(getEvent);
 const menuData = getMenu();
 const filtersData = getFilter();
+const tripDates = getTripDates();
 APP_SETTINGS.totalPrice = calculateTotalPrice();
-APP_SETTINGS.month = getTripDates().month;
-APP_SETTINGS.startTrip = getTripDates().tripStart;
-APP_SETTINGS.endTrip = getTripDates().tripEnd;
+APP_SETTINGS.month = tripDates.month;
+APP_SETTINGS.startTrip = tripDates.tripStart;
+APP_SETTINGS.endTrip = tripDates.tripEnd;
 APP_SETTINGS.cities = getTotalCities();
 
 render(document.querySelector(`.trip-main`), makeTripInfo(APP_SETTINGS), `afterbegin`);
