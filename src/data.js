@@ -140,3 +140,18 @@ export const getMenu = () => ([
     isActive: false,
   },
 ]);
+
+export const getFilter = () => ([
+  {
+    title: `Everything`,
+    isActive: true
+  },
+  {
+    title: `Future`,
+    isActive: false
+  },
+  {
+    title: `Past`,
+    isActive: false
+  }
+]);
