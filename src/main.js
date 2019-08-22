@@ -3,9 +3,10 @@ import {makeMenu} from './components/menu';
 import {makeFilter} from './components/filters';
 import {makeSort} from './components/sorting';
 import {makeContent} from './components/content';
-import {makeCard} from './components/card';
-import {makeCardEdit} from './components/card-edit';
+import Card from './components/card';
+import CardEdit from './components/card-edit';
 import {getEvent, getMenu, getFilter} from './data';
+import {render as rendering, Position} from './utils';
 
 const APP_SETTINGS = {
   totalCards: 4,
@@ -14,6 +15,21 @@ const APP_SETTINGS = {
   startTrip: null,
   endTrip: null,
   cities: null,
+};
+
+const renderCard = (cardsMocks) => {
+  const card = new Card(cardsMocks);
+  const cardEdit = new CardEdit(cardsMocks);
+
+  card.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
+    document.querySelector(`.trip-events__list`).replaceChild(cardEdit.getElement(), card.getElement());
+  });
+
+  cardEdit.getElement().querySelector(`.event__save-btn`).addEventListener(`click`, () => {
+    document.querySelector(`.trip-events__list`).replaceChild(card.getElement(), cardEdit.getElement());
+  });
+
+  rendering(document.querySelector(`.trip-events__list`), card.getElement(), Position.BEFOREEND);
 };
 
 const render = (container, component, place = `afterend`) => {
@@ -26,40 +42,41 @@ const makeData = (createData, count = APP_SETTINGS.totalCards) => {
   return newArr;
 };
 
-const calculateTotalPrice = (cards = cardsData) => {
+const calculateTotalPrice = (cards) => {
   let totalPrice = 0;
   totalPrice = cards.map((it) => +it.prices).reduce((first, second) => first + second);
   return totalPrice;
 };
 
-const getTripDates = (cards = cardsData) => {
+const getTripDates = (cards) => {
   return {
-    month: new Date(cards.sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date))[0].dates[0].date).toDateString().split(` `)[1],
-    tripStart: new Date(cards.sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date))[0].dates[0].date).toDateString().split(` `)[2],
-    tripEnd: new Date(cards.sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date))[cards.length - 1].dates[0].date).toDateString().split(` `)[2],
+    month: new Date(cards[0].dates[0].date).toDateString().split(` `)[1],
+    tripStart: new Date(cards[0].dates[0].date).toDateString().split(` `)[2],
+    tripEnd: new Date(cards[cards.length - 1].dates[0].date).toDateString().split(` `)[2],
   };
 };
 
-const getTotalCities = (cards = cardsData) => {
+const getAllCities = (cards) => {
   let cities = [];
-  cities = cards.sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date)).map((card) => card.cities);
+  cities = cards.map((card) => card.cities);
   return cities;
 };
 
-const cardsData = makeData(getEvent);
+const cardsData = makeData(getEvent).
+sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date));
 const menuData = getMenu();
 const filtersData = getFilter();
-const tripDates = getTripDates();
-APP_SETTINGS.totalPrice = calculateTotalPrice();
+const tripDates = getTripDates(cardsData);
+APP_SETTINGS.totalPrice = calculateTotalPrice(cardsData);
 APP_SETTINGS.month = tripDates.month;
 APP_SETTINGS.startTrip = tripDates.tripStart;
 APP_SETTINGS.endTrip = tripDates.tripEnd;
-APP_SETTINGS.cities = getTotalCities();
+APP_SETTINGS.cities = getAllCities(cardsData);
 
 render(document.querySelector(`.trip-main`), makeTripInfo(APP_SETTINGS), `afterbegin`);
-menuData.reverse().forEach((menuItem) => render(document.querySelector(`.trip-tabs`), makeMenu(menuItem), `afterbegin`));
-filtersData.slice(1, 4).reverse().forEach((filter) => render(document.querySelector(`.trip-filters`), makeFilter(filter), `afterbegin`));
+menuData.reverse().
+forEach((menuItem) => render(document.querySelector(`.trip-tabs`), makeMenu(menuItem), `afterbegin`));
+filtersData.reverse().forEach((filter) => render(document.querySelector(`.trip-filters`), makeFilter(filter), `afterbegin`));
 render(document.querySelector(`.trip-events > h2`), makeSort());
 render(document.querySelector(`.trip-events .trip-events__trip-sort`), makeContent());
-render(document.querySelector(`.trip-events__list`), makeCardEdit(cardsData[0]), `afterbegin`);
-cardsData.slice(1, cardsData.length).sort((a, b) => a.dates.map((it) => it.date) - b.dates.map((it) => it.date)).forEach((card) => render(document.querySelector(`.trip-events__list`), makeCard(card), `beforeend`));
+cardsData.forEach((card) => renderCard(card));

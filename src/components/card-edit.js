@@ -1,11 +1,32 @@
-export const makeCardEdit = ({types, cities, description, dates, images, prices, options}) => `
-                <li class="trip-events__item">
+import {createElement} from '../utils';
+
+export default class CardEdit {
+  constructor({types, cities, description, dates, images, prices, options}) {
+    this._types = types;
+    this._cities = cities;
+    this._description = description;
+    this._dates = dates;
+    this._images = images;
+    this._prices = prices;
+    this._options = options;
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  getTemplate() {
+    return `<li class="trip-events__item">
                   <form class="event  event--edit" action="#" method="post">
                     <header class="event__header">
                       <div class="event__type-wrapper">
                         <label class="event__type  event__type-btn" for="event-type-toggle-1">
                           <span class="visually-hidden">Choose event type</span>
-                          ${types.map((type) => `<img class="event__type-icon" width="17" height="17" src="img/icons/${type.icon}.png" alt="Event type icon">`)}
+                          ${this._types.map((type) => `<img class="event__type-icon" width="17" height="17" src="img/icons/${type.icon}.png" alt="Event type icon">`)}
                         </label>
                         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -72,9 +93,9 @@ export const makeCardEdit = ({types, cities, description, dates, images, prices,
 
                       <div class="event__field-group  event__field-group--destination">
                         <label class="event__label  event__type-output" for="event-destination-1">
-                          ${types.map((type) => type.title)}
+                          ${this._types.map((type) => type.title)}
                         </label>
-                        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${cities}" list="destination-list-1">
+                        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._cities}" list="destination-list-1">
                         <datalist id="destination-list-1">
                           <option value="Amsterdam"></option>
                           <option value="Geneva"></option>
@@ -86,12 +107,12 @@ export const makeCardEdit = ({types, cities, description, dates, images, prices,
                         <label class="visually-hidden" for="event-start-time-1">
                           From
                         </label>
-                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${dates.map((dateItem) => dateItem.from)}">
+                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${this._dates.map((dateItem) => dateItem.from)}">
                         &mdash;
                         <label class="visually-hidden" for="event-end-time-1">
                           To
                         </label>
-                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${dates.map((dateItem) => dateItem.to)}">
+                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${this._dates.map((dateItem) => dateItem.to)}">
                       </div>
 
                       <div class="event__field-group  event__field-group--price">
@@ -99,7 +120,7 @@ export const makeCardEdit = ({types, cities, description, dates, images, prices,
                           <span class="visually-hidden">Price</span>
                           &euro;
                         </label>
-                        <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${prices}">
+                        <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._prices}">
                       </div>
 
                       <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -124,7 +145,7 @@ export const makeCardEdit = ({types, cities, description, dates, images, prices,
                         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
                         <div class="event__available-offers">
-                          ${options.map((option) => `<div class="event__offer-selector">
+                          ${this._options.map((option) => `<div class="event__offer-selector">
                             <input class="event__offer-checkbox  visually-hidden" id="event-offer-${option.title}" type="checkbox" name="event-offer-luggage" ${option.isActive ? `checked` : ``}>
                             <label class="event__offer-label" for="event-offer-${option.title}">
                               <span class="event__offer-title">${option.title}</span>
@@ -137,14 +158,17 @@ export const makeCardEdit = ({types, cities, description, dates, images, prices,
 
                       <section class="event__section  event__section--destination">
                         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                        <p class="event__destination-description">${description.map((it) => it).join(``)}</p>
+                        <p class="event__destination-description">${this._description.map((it) => it).join(``)}</p>
 
                         <div class="event__photos-container">
                           <div class="event__photos-tape">
-                            ${images.map((image) => `<img class="event__photo" src="${image}.jpg" alt="Event photo">`).join(``)}
+                            ${this._images.map((image) => `<img class="event__photo" src="${image}.jpg" alt="Event photo">`).join(``)}
                           </div>
                         </div>
                       </section>
                     </section>
                   </form>
                 </li>`;
+  }
+}
+
