@@ -1,4 +1,4 @@
-export const getEvent = () => ({
+export const getPoint = () => ({
   types: [
     {
       type: `taxi`,

@@ -1,12 +1,13 @@
 import {createElement} from '../utils';
 
-export default class Card {
-  constructor({types, cities, dates, prices, options}) {
+export default class Point {
+  constructor({types, cities, dates, prices, options}, {maxOptionsToShow}) {
     this._types = types;
     this._cities = cities;
     this._dates = dates;
     this._prices = prices;
     this._options = options;
+    this._maxOptionsToShow = maxOptionsToShow;
     this._element = null;
   }
 
@@ -44,7 +45,7 @@ export default class Card {
                         <span class="event__offer-title">${option.title}</span>
                         &plus;
                         &euro;&nbsp;<span class="event__offer-price">${option.price}</span>
-                       </li>`).slice(0, 2).join(``)}
+                       </li>`).slice(0, this._maxOptionsToShow).join(``)}
                     </ul>
 
                     <button class="event__rollup-btn" type="button">

@@ -1,4 +1,19 @@
-export const makeStats = () => `<section class="statistics">
+import {createElement} from '../utils';
+
+export default class Stats {
+  constructor() {
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  getTemplate() {
+    return `<section class="statistics">
           <h2 class="visually-hidden">Trip statistics</h2>
 
           <div class="statistics__item statistics__item--money">
@@ -13,3 +28,6 @@ export const makeStats = () => `<section class="statistics">
             <canvas class="statistics__chart  statistics__chart--time" width="900"></canvas>
           </div>
         </section>`;
+  }
+}
+
