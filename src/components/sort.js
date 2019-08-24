@@ -1,19 +1,9 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class Sort {
-  constructor() {
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
+export default class Sort extends Component {
   getTemplate() {
-    return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+    return `<div class="trip-events__sort-wrap">
+<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
             <span class="trip-sort__item  trip-sort__item--day">Day</span>
 
             <div class="trip-sort__item  trip-sort__item--event">
@@ -42,7 +32,8 @@ export default class Sort {
             </div>
 
             <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
-          </form>`;
+          </form>
+</div>`;
   }
 }
 

@@ -1,7 +1,8 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class PointEdit {
+export default class PointEdit extends Component {
   constructor({types, cities, description, dates, images, prices, options}) {
+    super();
     this._types = types;
     this._cities = cities;
     this._description = description;
@@ -9,14 +10,6 @@ export default class PointEdit {
     this._images = images;
     this._prices = prices;
     this._options = options;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {

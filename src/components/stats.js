@@ -1,17 +1,6 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class Stats {
-  constructor() {
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
+export default class Stats extends Component {
   getTemplate() {
     return `<section class="statistics">
           <h2 class="visually-hidden">Trip statistics</h2>
