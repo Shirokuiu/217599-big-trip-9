@@ -1,6 +1,6 @@
 import {createElement} from '../utils';
 
-export default class CardEdit {
+export default class PointEdit {
   constructor({types, cities, description, dates, images, prices, options}) {
     this._types = types;
     this._cities = cities;
