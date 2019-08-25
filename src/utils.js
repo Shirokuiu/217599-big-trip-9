@@ -1,3 +1,13 @@
+export const APP_SETTINGS = {
+  totalCards: 4,
+  totalPrice: 0,
+  maxOptionsToShow: 3,
+  month: null,
+  startTrip: null,
+  endTrip: null,
+  cities: null,
+};
+
 export const Position = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`,
@@ -9,7 +19,7 @@ export const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export const render = (container, component, place) => {
+export const render = (container, component, place = Position.BEFOREEND) => {
   switch (place) {
     case Position.AFTERBEGIN:
       container.prepend(component);

@@ -1,16 +1,9 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class Menu {
+export default class Menu extends Component {
   constructor(menuData) {
+    super();
     this._menuData = menuData;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {

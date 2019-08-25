@@ -1,21 +1,14 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class Point {
+export default class Point extends Component {
   constructor({types, cities, dates, prices, options}, {maxOptionsToShow}) {
+    super();
     this._types = types;
     this._cities = cities;
     this._dates = dates;
     this._prices = prices;
     this._options = options;
     this._maxOptionsToShow = maxOptionsToShow;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {

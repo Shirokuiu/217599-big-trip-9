@@ -1,21 +1,14 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class TripInfo {
+export default class TripInfo extends Component {
   constructor({totalCards, totalPrice, month, startTrip, endTrip, cities}) {
+    super();
     this._totalPrice = totalPrice;
     this._month = month;
     this._startTrip = startTrip;
     this._endTrip = endTrip;
     this._cities = cities;
     this._totalCards = totalCards;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {

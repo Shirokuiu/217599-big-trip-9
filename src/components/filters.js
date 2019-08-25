@@ -1,16 +1,9 @@
-import {createElement} from '../utils';
+import Component from "./component";
 
-export default class Filter {
+export default class Filter extends Component {
   constructor(filters) {
+    super();
     this._filters = filters;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {
