@@ -1,10 +1,12 @@
+import Controller from "./controller";
 import TripController from "./trip";
 import HeaderController from "./head";
 
 import {getPoint, getMenu, getFilter} from '../data';
 
-export default class AppController {
+export default class AppController extends Controller {
   constructor() {
+    super();
     this._totalPoints = 4;
     this._totalPrice = 0;
     this._maxOptionsToShow = 3;
@@ -16,8 +18,8 @@ export default class AppController {
     this._menuMocks = getMenu();
     this._filterMocks = getFilter();
     this._tripInfo = this.appInfo;
-    this._headerController = new HeaderController(document.querySelector(`.trip-main`), this._pointMocks, this._menuMocks, this._filterMocks, this._tripInfo);
-    this._tripController = new TripController(document.querySelector(`.trip-events`), this._pointMocks, this.appInfo);
+    this._headerController = new HeaderController(this._pointMocks, this._menuMocks, this._filterMocks, this._tripInfo);
+    this._tripController = new TripController(this._pointMocks, this.appInfo);
   }
 
   init() {

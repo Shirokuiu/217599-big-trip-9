@@ -1,3 +1,5 @@
+import Controller from "./controller";
+
 import Content from "../components/content";
 import TripDay from "../components/trip-day";
 import Sort from "../components/sort";
@@ -7,9 +9,10 @@ import NoEventsScreen from "../components/noEventsScreen";
 
 import {render} from '../utils';
 
-export default class TripController {
-  constructor(container, pointMocks, appInfo) {
-    this._container = container;
+export default class TripController extends Controller {
+  constructor(pointMocks, appInfo) {
+    super();
+    this.container = document.querySelector(`.trip-events`);
     this._pointMocks = pointMocks;
     this._appInfo = appInfo;
     this._sort = new Sort();
@@ -20,8 +23,8 @@ export default class TripController {
 
   init() {
     if (this._appInfo.totalPoints) {
-      render(this._container, this._sort.getElement());
-      render(this._container, this._content.getElement());
+      render(this.container, this._sort.getElement());
+      render(this.container, this._content.getElement());
       render(this._content.getElement(), this._tripDay.getElement());
       this._pointMocks.forEach((point) => this._renderPoint(point, this._appInfo));
 
@@ -29,7 +32,7 @@ export default class TripController {
         .addEventListener(`change`, this._sortPointMocks.bind(this));
       return;
     }
-    render(this._container, this._noEventsScreen.getElement());
+    render(this.container, this._noEventsScreen.getElement());
   }
 
   _renderPoint(pointMocks, settings) {

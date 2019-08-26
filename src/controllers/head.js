@@ -1,12 +1,15 @@
+import Controller from "./controller";
+
 import Menu from "../components/menu";
 import Filter from "../components/filters";
 import TripInfo from "../components/trip-info";
 
 import {render, Position} from '../utils';
 
-export default class HeaderController {
-  constructor(container, pointMocks, menuMocks, filterMocks, tripInfo) {
-    this._container = container;
+export default class HeaderController extends Controller {
+  constructor(pointMocks, menuMocks, filterMocks, tripInfo) {
+    super();
+    this.container = document.querySelector(`.trip-main`);
     this._pointMocks = pointMocks;
     this._menuMocks = menuMocks;
     this._filterMocks = filterMocks;
@@ -18,9 +21,9 @@ export default class HeaderController {
   }
 
   init() {
-    render(this._container, this._tripInfo.getElement(), Position.AFTERBEGIN);
-    render(this._container.querySelector(`.trip-main__trip-controls`), this._menu.getElement());
-    render(this._container.querySelector(`.trip-main__trip-controls`), this._filter.getElement());
+    render(this.container, this._tripInfo.getElement(), Position.AFTERBEGIN);
+    render(this.container.querySelector(`.trip-main__trip-controls`), this._menu.getElement());
+    render(this.container.querySelector(`.trip-main__trip-controls`), this._filter.getElement());
   }
 
   _calculateTotalPrice(pointMocks) {
