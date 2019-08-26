@@ -5,6 +5,10 @@ export default class Component {
     this._element = null;
   }
 
+  set element(value) {
+    this._element = value;
+  }
+
   getElement() {
     if (!this._element) {
       this._element = createElement(this.getTemplate());
@@ -12,10 +16,10 @@ export default class Component {
     return this._element;
   }
 
-  removeElement(component, element = null) {
+  removeElement(component, element = null, value = null) {
     unrender(component);
     if (element) {
-      element = null;
+      this.element = value;
     }
   }
 
