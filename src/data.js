@@ -61,7 +61,7 @@ export const getPoint = () => ({
     {
       date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
       from: `12.25`,
-      to: `10.10`,
+      to: `14.10`,
     },
     {
       date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
