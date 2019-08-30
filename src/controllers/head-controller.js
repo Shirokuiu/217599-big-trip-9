@@ -1,4 +1,4 @@
-import Controller from "./controller";
+import MainController from "./main-controller";
 
 import Menu from "../components/menu";
 import Filter from "../components/filters";
@@ -6,7 +6,7 @@ import TripInfo from "../components/trip-info";
 
 import {render, Position} from '../utils';
 
-export default class HeaderController extends Controller {
+export default class HeaderController extends MainController {
   constructor(pointMocks, menuMocks, filterMocks, tripInfo) {
     super();
     this.container = document.querySelector(`.trip-main`);
@@ -37,9 +37,9 @@ export default class HeaderController extends Controller {
   _getTripDates(pointMocks) {
     if (pointMocks.length) {
       return {
-        month: new Date(pointMocks[0].dates[0].date).toDateString().split(` `)[1],
-        tripStart: new Date(pointMocks[0].dates[0].date).toDateString().split(` `)[2],
-        tripEnd: new Date(pointMocks[pointMocks.length - 1].dates[0].date).toDateString().split(` `)[2],
+        month: new Date(pointMocks[0].dates.date).toDateString().split(` `)[1],
+        tripStart: new Date(pointMocks[0].dates.date).toDateString().split(` `)[2],
+        tripEnd: new Date(pointMocks[pointMocks.length - 1].dates.date).toDateString().split(` `)[2],
       };
     }
     return {

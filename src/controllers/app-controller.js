@@ -1,10 +1,10 @@
-import Controller from "./controller";
-import TripController from "./trip";
-import HeaderController from "./head";
+import MainController from "./main-controller";
+import TripController from "./trip-controller";
+import HeaderController from "./head-controller";
 
 import {getPoint, getMenu, getFilter} from '../data';
 
-export default class AppController extends Controller {
+export default class AppController extends MainController {
   constructor() {
     super();
     this._totalPoints = 4;
@@ -41,12 +41,12 @@ export default class AppController extends Controller {
 
   _makePointsMock(pointMocks, count = this.appInfo.totalPoints) {
     const newPointMocks = new Array(count).fill(``).map(pointMocks)
-      .sort((a, b) => a.dates.map(({date}) => date) - b.dates.map(({date}) => date));
+      .sort((a, b) => a.dates.date - b.dates.date);
     this._calculateDifferenceTime(newPointMocks);
     return newPointMocks;
   }
 
   _calculateDifferenceTime(pointMocks) {
-    pointMocks.map(({dates}) => (dates[0].timeDifference = Math.abs(+dates[0].to - +dates[0].from)));
+    pointMocks.map(({dates}) => (dates.timeDifference = Math.abs(+dates.to - +dates.from)));
   }
 }

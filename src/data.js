@@ -1,5 +1,58 @@
+export const pointTypes = [
+  {
+    type: `taxi`,
+    icon: `taxi`,
+    title: `Taxi to`,
+  },
+  {
+    type: `bus`,
+    icon: `bus`,
+    title: `Bus to`,
+  },
+  {
+    type: `train`,
+    icon: `train`,
+    title: `Train to`,
+  },
+  {
+    type: `ship`,
+    icon: `ship`,
+    title: `Ship to`,
+  },
+  {
+    type: `transport`,
+    icon: `transport`,
+    title: `Transport to`,
+  },
+  {
+    type: `drive`,
+    icon: `drive`,
+    title: `Drive to`,
+  },
+  {
+    type: `flight`,
+    icon: `flight`,
+    title: `Flight to`,
+  },
+  {
+    type: `check`,
+    icon: `check-in`,
+    title: `Check into`,
+  },
+  {
+    type: `sightseeing`,
+    icon: `sightseeing`,
+    title: `Sightseeing`,
+  },
+  {
+    type: `restaurant`,
+    icon: `restaurant`,
+    title: `Restaurant`,
+  }
+];
+
 export const getPoint = () => ({
-  types: [
+  type: [
     {
       type: `taxi`,
       icon: `taxi`,
@@ -50,7 +103,7 @@ export const getPoint = () => ({
       icon: `restaurant`,
       title: `Restaurant`,
     }
-  ].sort(() => Math.random() - 0.5).slice(0, 1),
+  ].sort(() => Math.random() - 0.5)[0],
   cities: [
     `Amsterdam`,
     `Chamonix`,
@@ -88,7 +141,7 @@ export const getPoint = () => ({
       from: `10.30`,
       to: `11.00`,
     },
-  ].sort(() => Math.random() - 0.5).slice(0, 1),
+  ].sort(() => Math.random() - 0.5)[0],
   prices: [
     `100`,
     `30`,
@@ -104,8 +157,8 @@ export const getPoint = () => ({
     `Aliquam erat volutpat.`,
     `Nunc fermentum tortor ac porta dapibus.`,
     `In rutrum ac purus sit amet tempus.`
-  ].sort(() => Math.random() - 0.5).slice(1, Math.floor(Math.random() * 9)),
-  images: new Array(Math.floor(Math.random() * 3) + 1).fill(`http://picsum.photos/300/150?r=${Math.random()}`),
+  ].sort(() => Math.random() - 0.5).slice(1, Math.floor(Math.random() * 9))[0],
+  images: new Array(Math.floor(Math.random() * 3) + 1).fill(`http://picsum.photos/300/150?r=${Math.random()}.jpg`),
   options: [
     {
       title: `Add luggage`,
@@ -127,7 +180,7 @@ export const getPoint = () => ({
       price: `9`,
       isActive: Boolean(Math.round(Math.random()))
     },
-  ].sort(() => Math.random() - 0.5)
+  ]
 });
 
 export const getMenu = () => ([

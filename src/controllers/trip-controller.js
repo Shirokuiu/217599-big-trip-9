@@ -1,15 +1,15 @@
-import Controller from "./controller";
+import MainController from "./main-controller";
+import PointController from "./point-controller";
 
 import Content from "../components/content";
 import TripDay from "../components/trip-day";
 import Sort from "../components/sort";
-import Point from "../components/point";
-import PointEdit from "../components/point-edit";
 import NoEventsScreen from "../components/noEventsScreen";
 
-import {render} from '../utils';
+import {render, unrender} from '../utils';
+import {pointTypes} from '../data';
 
-export default class TripController extends Controller {
+export default class TripController extends MainController {
   constructor(pointMocks, appInfo) {
     super();
     this.container = document.querySelector(`.trip-events`);
@@ -19,6 +19,11 @@ export default class TripController extends Controller {
     this._content = new Content();
     this._tripDay = new TripDay();
     this._noEventsScreen = new NoEventsScreen();
+    this._pointTypes = pointTypes;
+
+    this._subscriptions = [];
+    this._onChangeView = this._onChangeView.bind(this);
+    this._onDataChange = this._onDataChange.bind(this);
   }
 
   init() {
@@ -35,33 +40,26 @@ export default class TripController extends Controller {
     render(this.container, this._noEventsScreen.getElement());
   }
 
-  _renderPoint(pointMocks, settings) {
-    const point = new Point(pointMocks, settings);
-    const pointEdit = new PointEdit(pointMocks);
+  _renderTripDay() {
+    unrender(this._tripDay.getElement());
+    this._tripDay.removeElement();
 
-    const onEscKeyDown = (evt) => {
-      if (evt.key === `Escape` || evt.key === `Esc`) {
-        document.querySelector(`.trip-events__list`).replaceChild(point.getElement(), pointEdit.getElement());
-        document.removeEventListener(`keydown`, onEscKeyDown);
-      }
-    };
+    render(this._content.getElement(), this._tripDay.getElement());
+    this._pointMocks.forEach((point) => this._renderPoint(point));
+  }
 
-    point.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-      document.querySelector(`.trip-events__list`).replaceChild(pointEdit.getElement(), point.getElement());
-      document.addEventListener(`keydown`, onEscKeyDown);
-    });
+  _renderPoint(pointMock) {
+    const tripController = new PointController(this._tripDay, pointMock, this._appInfo, this._pointTypes, this._onDataChange, this._onChangeView);
+    this._subscriptions.push(tripController._setDefaultView.bind(tripController));
+  }
 
-    pointEdit.getElement().querySelector(`.event__save-btn`).addEventListener(`click`, () => {
-      document.querySelector(`.trip-events__list`).replaceChild(point.getElement(), pointEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
+  _onChangeView() {
+    this._subscriptions.forEach((it) => it());
+  }
 
-    pointEdit.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-      document.querySelector(`.trip-events__list`).replaceChild(point.getElement(), pointEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-    render(document.querySelector(`.trip-events__list`), point.getElement());
+  _onDataChange(newData, oldData) {
+    this._pointMocks[this._pointMocks.findIndex((point) => point === oldData)] = newData;
+    this._renderTripDay();
   }
 
   _sortPointMocks(evt) {
@@ -72,7 +70,7 @@ export default class TripController extends Controller {
         break;
       case `sort-time`:
         this._copyMocks(this._pointMocks)
-          .sort((a, b) => a.dates[0].timeDifference - b.dates[0].timeDifference)
+          .sort((a, b) => a.dates.timeDifference - b.dates.timeDifference)
           .forEach((point) => this._renderPoint(point, this._appInfo));
         break;
       case `sort-price`:
