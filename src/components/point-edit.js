@@ -1,15 +1,16 @@
 import Component from "./component";
 
 export default class PointEdit extends Component {
-  constructor({types, cities, description, dates, images, prices, options}) {
+  constructor({type, cities, description, dates, images, prices, options}, pointTypes) {
     super();
-    this._types = types;
+    this._type = type;
     this._cities = cities;
     this._description = description;
     this._dates = dates;
     this._images = images;
     this._prices = prices;
     this._options = options;
+    this._pointTypes = pointTypes;
   }
 
   getTemplate() {
@@ -17,76 +18,55 @@ export default class PointEdit extends Component {
                   <form class="event  event--edit" action="#" method="post">
                     <header class="event__header">
                       <div class="event__type-wrapper">
-                        <label class="event__type  event__type-btn" for="event-type-toggle-1">
+                        <label 
+                            class="event__type  event__type-btn" 
+                            for="event-type-toggle-1"
+                            data-triptype-icon="${this._type.icon}"
+                          >
                           <span class="visually-hidden">Choose event type</span>
-                          ${this._types.map((type) => `<img class="event__type-icon" width="17" height="17" src="img/icons/${type.icon}.png" alt="Event type icon">`)}
+                          <img class="event__type-icon" width="17" height="17" src="img/icons/${this._type.icon}.png" alt="Event type icon">
                         </label>
                         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
                         <div class="event__type-list">
                           <fieldset class="event__type-group">
                             <legend class="visually-hidden">Transfer</legend>
-
-                            <div class="event__type-item">
-                              <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-                              <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
-                              <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-                              <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-                              <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">Ship</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-transport-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="transport">
-                              <label class="event__type-label  event__type-label--transport" for="event-type-transport-1">Transport</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
-                              <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">Drive</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
-                              <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
-                            </div>
+                            
+                            ${this._pointTypes.slice(0, 7).map(({type, title, icon}) => `<div class="event__type-item">
+                              <input 
+                                id="event-type-${type}-1"
+                                class="event__type-input  visually-hidden" 
+                                type="radio" 
+                                name="event-type" 
+                                value="${type}"
+                                data-text="${title}"
+                                ${icon === this._type.icon ? `checked` : ``}
+                                >
+                              <label class="event__type-label  event__type-label--${icon}" for="event-type-${type}-1">${title}</label>
+                            </div>`).join(``)}
                           </fieldset>
 
                           <fieldset class="event__type-group">
                             <legend class="visually-hidden">Activity</legend>
-
-                            <div class="event__type-item">
-                              <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
-                              <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">Check-in</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
-                              <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
-                            </div>
-
-                            <div class="event__type-item">
-                              <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
-                              <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
-                            </div>
+                            ${this._pointTypes.slice(7, 10).map(({type, title, icon}) => `<div class="event__type-item">
+                              <input 
+                                id="event-type-${type}-1" 
+                                class="event__type-input  visually-hidden" 
+                                type="radio" 
+                                name="event-type"
+                                value="${icon}"
+                                data-text="${title}"
+                                ${icon === this._type.icon ? `checked` : ``}
+                              >
+                              <label class="event__type-label  event__type-label--${icon}" for="event-type-${type}-1">${title}</label>
+                            </div>`).join(``)}
                           </fieldset>
                         </div>
                       </div>
 
                       <div class="event__field-group  event__field-group--destination">
                         <label class="event__label  event__type-output" for="event-destination-1">
-                          ${this._types.map((type) => type.title)}
+                          ${this._type.title}
                         </label>
                         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._cities}" list="destination-list-1">
                         <datalist id="destination-list-1">
@@ -100,12 +80,12 @@ export default class PointEdit extends Component {
                         <label class="visually-hidden" for="event-start-time-1">
                           From
                         </label>
-                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${this._dates.map((dateItem) => dateItem.from)}">
+                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._dates.date).toDateString()} ${this._dates.from}">
                         &mdash;
                         <label class="visually-hidden" for="event-end-time-1">
                           To
                         </label>
-                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dates.map((dateItem) => new Date(dateItem.date).toDateString())} ${this._dates.map((dateItem) => dateItem.to)}">
+                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dates.date).toDateString()} ${this._dates.to}">
                       </div>
 
                       <div class="event__field-group  event__field-group--price">
@@ -151,11 +131,11 @@ export default class PointEdit extends Component {
 
                       <section class="event__section  event__section--destination">
                         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                        <p class="event__destination-description">${this._description.map((it) => it).join(``)}</p>
+                        <p class="event__destination-description">${this._description}</p>
 
                         <div class="event__photos-container">
                           <div class="event__photos-tape">
-                            ${this._images.map((image) => `<img class="event__photo" src="${image}.jpg" alt="Event photo">`).join(``)}
+                            ${this._images.map((image) => `<img class="event__photo" src="${image}" alt="Event photo">`).join(``)}
                           </div>
                         </div>
                       </section>

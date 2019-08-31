@@ -1,4 +1,4 @@
-import AppController from "./controllers/app";
+import AppController from "./controllers/app-controller";
 
 const appController = new AppController();
 

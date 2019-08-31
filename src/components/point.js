@@ -1,9 +1,9 @@
 import Component from "./component";
 
 export default class Point extends Component {
-  constructor({types, cities, dates, prices, options}, {maxOptionsToShow}) {
+  constructor({type, cities, dates, prices, options}, {maxOptionsToShow}) {
     super();
-    this._types = types;
+    this._type = type;
     this._cities = cities;
     this._dates = dates;
     this._prices = prices;
@@ -15,15 +15,15 @@ export default class Point extends Component {
     return `<li class="trip-events__item">
                   <div class="event">
                     <div class="event__type">
-                      ${this._types.map((type) => `<img class="event__type-icon" width="42" height="42" src="img/icons/${type.icon}.png" alt="Event type icon">`)}
+                      <img class="event__type-icon" width="42" height="42" src="img/icons/${this._type.icon}.png" alt="Event type icon">
                     </div>
-                    ${this._types.map((type) => `<h3 class="event__title">${type.title} ${this._cities}</h3>`)}
+                    <h3 class="event__title">${this._type.title} ${this._cities}</h3>
 
                     <div class="event__schedule">
                       <p class="event__time">
-                        ${this._dates.map((it) => `<time class="event__start-time" datetime="2019-03-18T10:30"> ${it.from} </time>`)}
+                        <time class="event__start-time" datetime="2019-03-18T10:30"> ${this._dates.from} </time>
                         &mdash;
-                        ${this._dates.map((it) => `<time class="event__start-time" datetime="2019-03-18T10:30"> ${it.to} </time>`)}
+                        <time class="event__start-time" datetime="2019-03-18T10:30"> ${this._dates.to} </time>
                       </p>
                       <p class="event__duration">1H 30M</p>
                     </div>
