@@ -104,60 +104,81 @@ export const getPoint = () => ({
       title: `Restaurant`,
     }
   ].sort(() => Math.random() - 0.5)[0],
-  cities: [
-    `Amsterdam`,
-    `Chamonix`,
-    `Paris`,
-    `Berlin`
-  ].sort(() => Math.random() - 0.5)[0],
+  city: {
+    cities: [
+      {
+        name: `Amsterdam`,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,
+      },
+      {
+        name: `Chamonix`,
+        description: `Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra.`
+      },
+      {
+        name: `Paris`,
+        description: `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+      },
+      {
+        name: `Berlin`,
+        description: `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`
+      }
+    ],
+    citySelected: [
+      {
+        name: `Amsterdam`,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,
+      },
+      {
+        name: `Chamonix`,
+        description: `Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra.`
+      },
+      {
+        name: `Paris`,
+        description: `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+      },
+      {
+        name: `Berlin`,
+        description: `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`
+      }
+    ].sort(() => Math.random() - 0.5)[0],
+  },
   dates: [
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `12.25`,
-      to: `14.10`,
+      date: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000 + 2 * 3600 * 1000,
     },
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `12.22`,
-      to: `14.05`,
+      date: Date.now() + 1 + 2 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 2 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 2 * 24 * 60 * 60 * 1000 + 3 * 3600 * 1000,
     },
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `10.40`,
-      to: `11.10`,
+      date: Date.now() + 1 + 5 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 5 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 5 * 24 * 60 * 60 * 1000 + 5 * 3600 * 1000,
     },
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `14.30`,
-      to: `16.05`,
+      date: Date.now() + 1 + 6 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 6 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 6 * 24 * 60 * 60 * 1000 + 4 * 3600 * 1000,
     },
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `12.25`,
-      to: `13.35`,
+      date: Date.now() + 1 + 7 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 7 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 7 * 24 * 60 * 60 * 1000 + 2 * 3600 * 1000,
     },
     {
-      date: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
-      from: `10.30`,
-      to: `11.00`,
+      date: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000,
+      from: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000,
+      to: Date.now() + 1 + 3 * 24 * 60 * 60 * 1000 + 3 * 3600 * 1000,
     },
   ].sort(() => Math.random() - 0.5)[0],
-  prices: [
+  price: [
     `100`,
     `30`,
     `200`
-  ].sort(() => Math.random() - 0.5).slice(0, 1),
-  description: [
-    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,
-    `Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra.`,
-    `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
-    `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
-    `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
-    `Sed sed nisi sed augue convallis suscipit in sed felis.`,
-    `Aliquam erat volutpat.`,
-    `Nunc fermentum tortor ac porta dapibus.`,
-    `In rutrum ac purus sit amet tempus.`
-  ].sort(() => Math.random() - 0.5).slice(1, Math.floor(Math.random() * 9))[0],
+  ].sort(() => Math.random() - 0.5)[0],
   images: new Array(Math.floor(Math.random() * 3) + 1).fill(`http://picsum.photos/300/150?r=${Math.random()}.jpg`),
   options: [
     {

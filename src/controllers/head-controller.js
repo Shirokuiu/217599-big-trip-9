@@ -29,7 +29,7 @@ export default class HeaderController extends MainController {
   _calculateTotalPrice(pointMocks) {
     let totalPrice = 0;
     if (pointMocks.length) {
-      totalPrice = pointMocks.map(({prices}) => +prices).reduce((first, second) => first + second);
+      totalPrice = pointMocks.map(({price}) => +price).reduce((first, second) => first + second);
     }
     return totalPrice;
   }
@@ -51,7 +51,7 @@ export default class HeaderController extends MainController {
 
   _getAllCities(pointMocks) {
     let cities = [];
-    cities = pointMocks.map((point) => point.cities);
+    cities = pointMocks.map((point) => point.city.citySelected.name);
     return cities;
   }
 

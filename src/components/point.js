@@ -1,14 +1,16 @@
-import Component from "./component";
+import Component from './component';
+import moment from 'moment';
 
 export default class Point extends Component {
-  constructor({type, cities, dates, prices, options}, {maxOptionsToShow}) {
+  constructor({type, city, dates, price, options}, {maxOptionsToShow}, timeDifference) {
     super();
     this._type = type;
-    this._cities = cities;
+    this._city = city;
     this._dates = dates;
-    this._prices = prices;
+    this._price = price;
     this._options = options;
     this._maxOptionsToShow = maxOptionsToShow;
+    this._timeDifference = timeDifference;
   }
 
   getTemplate() {
@@ -17,19 +19,19 @@ export default class Point extends Component {
                     <div class="event__type">
                       <img class="event__type-icon" width="42" height="42" src="img/icons/${this._type.icon}.png" alt="Event type icon">
                     </div>
-                    <h3 class="event__title">${this._type.title} ${this._cities}</h3>
+                    <h3 class="event__title">${this._type.title} ${this._city.citySelected.name}</h3>
 
                     <div class="event__schedule">
                       <p class="event__time">
-                        <time class="event__start-time" datetime="2019-03-18T10:30"> ${this._dates.from} </time>
+                        <time class="event__start-time" datetime="${moment(this._dates.from).format(`HH:mm`)}"> ${moment(this._dates.from).format(`HH:mm`)} </time>
                         &mdash;
-                        <time class="event__start-time" datetime="2019-03-18T10:30"> ${this._dates.to} </time>
+                        <time class="event__start-time" datetime="${moment(this._dates.to).format(`HH:mm`)}"> ${moment(this._dates.to).format(`HH:mm`)} </time>
                       </p>
-                      <p class="event__duration">1H 30M</p>
+                      <p class="event__duration">${this._timeDifference}</p>
                     </div>
 
                     <p class="event__price">
-                      &euro;&nbsp;<span class="event__price-value">${this._prices}</span>
+                      &euro;&nbsp;<span class="event__price-value">${this._price}</span>
                     </p>
 
                     <h4 class="visually-hidden">Offers:</h4>

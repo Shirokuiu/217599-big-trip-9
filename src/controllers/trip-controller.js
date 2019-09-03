@@ -8,6 +8,7 @@ import NoEventsScreen from "../components/noEventsScreen";
 
 import {render, unrender} from '../utils';
 import {pointTypes} from '../data';
+import moment from "moment";
 
 export default class TripController extends MainController {
   constructor(pointMocks, appInfo) {
@@ -69,16 +70,21 @@ export default class TripController extends MainController {
         this._pointMocks.forEach((point) => this._renderPoint(point, this._appInfo));
         break;
       case `sort-time`:
-        this._copyMocks(this._pointMocks)
-          .sort((a, b) => a.dates.timeDifference - b.dates.timeDifference)
+        const newPointMocks = this._pointMocks;
+        this._calculateDuration(newPointMocks);
+        newPointMocks.sort((a, b) => b.dates.duration - a.dates.duration)
           .forEach((point) => this._renderPoint(point, this._appInfo));
         break;
       case `sort-price`:
         this._copyMocks(this._pointMocks)
-          .sort((a, b) => a.prices[0] - b.prices[0])
+          .sort((a, b) => b.price - a.price)
           .forEach((point) => this._renderPoint(point, this._appInfo));
         break;
     }
+  }
+
+  _calculateDuration(pointMocks) {
+    pointMocks.map(({dates}) => (dates.duration = moment(dates.to).diff(dates.from, `m`)));
   }
 
   _copyMocks(pointMocks) {

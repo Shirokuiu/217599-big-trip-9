@@ -1,14 +1,13 @@
 import Component from "./component";
 
 export default class PointEdit extends Component {
-  constructor({type, cities, description, dates, images, prices, options}, pointTypes) {
+  constructor({type, city, dates, images, price, options}, pointTypes) {
     super();
     this._type = type;
-    this._cities = cities;
-    this._description = description;
+    this._city = city;
     this._dates = dates;
     this._images = images;
-    this._prices = prices;
+    this._price = price;
     this._options = options;
     this._pointTypes = pointTypes;
   }
@@ -68,11 +67,9 @@ export default class PointEdit extends Component {
                         <label class="event__label  event__type-output" for="event-destination-1">
                           ${this._type.title}
                         </label>
-                        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._cities}" list="destination-list-1">
+                        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._city.citySelected.name}" list="destination-list-1">
                         <datalist id="destination-list-1">
-                          <option value="Amsterdam"></option>
-                          <option value="Geneva"></option>
-                          <option value="Chamonix"></option>
+                          ${this._city.cities.map(({name}) => `<option value="${name}"></option>`).join(``)}
                         </datalist>
                       </div>
 
@@ -80,12 +77,12 @@ export default class PointEdit extends Component {
                         <label class="visually-hidden" for="event-start-time-1">
                           From
                         </label>
-                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._dates.date).toDateString()} ${this._dates.from}">
+                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._dates.date.from).toDateString()} ${this._dates.from}">
                         &mdash;
                         <label class="visually-hidden" for="event-end-time-1">
                           To
                         </label>
-                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dates.date).toDateString()} ${this._dates.to}">
+                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dates.date.to).toDateString()} ${this._dates.to}">
                       </div>
 
                       <div class="event__field-group  event__field-group--price">
@@ -93,7 +90,7 @@ export default class PointEdit extends Component {
                           <span class="visually-hidden">Price</span>
                           &euro;
                         </label>
-                        <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._prices}">
+                        <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._price}">
                       </div>
 
                       <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -131,7 +128,7 @@ export default class PointEdit extends Component {
 
                       <section class="event__section  event__section--destination">
                         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                        <p class="event__destination-description">${this._description}</p>
+                        <p class="event__destination-description">${this._city.citySelected.description}</p>
 
                         <div class="event__photos-container">
                           <div class="event__photos-tape">

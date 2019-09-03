@@ -42,11 +42,6 @@ export default class AppController extends MainController {
   _makePointsMock(pointMocks, count = this.appInfo.totalPoints) {
     const newPointMocks = new Array(count).fill(``).map(pointMocks)
       .sort((a, b) => a.dates.date - b.dates.date);
-    this._calculateDifferenceTime(newPointMocks);
     return newPointMocks;
-  }
-
-  _calculateDifferenceTime(pointMocks) {
-    pointMocks.map(({dates}) => (dates.timeDifference = Math.abs(+dates.to - +dates.from)));
   }
 }
